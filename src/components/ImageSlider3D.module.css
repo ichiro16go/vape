@@ -1,0 +1,59 @@
+.banner {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-color: #c1c1c168;
+}
+
+.slider {
+  width: 200px;
+  height: 250px;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: auto-run 20s linear infinite;
+}
+
+@keyframes auto-run {
+  from {
+    transform: perspective(1000px) rotateY(0deg);
+  }
+  to {
+    transform: perspective(1000px) rotateY(360deg);
+  }
+}
+
+.item {
+  position: absolute;
+  inset: 0;
+  transform: rotateY(calc((var(--position) - 1) * (360 / var(--quantity)) * 1deg)) translateZ(350px);
+}
+
+.item:hover .image {
+  animation: self-rotate-and-scale 0.8s ease-in-out forwards;
+}
+
+/* 画像を自転・拡大させるための新しいキーフレーム */
+@keyframes self-rotate-and-scale {
+  from {
+    /* 開始時は変化なし */
+    transform: scale(1) rotateY(0deg);
+  }
+  to {
+    /* 終了時に1.3倍に拡大し、Y軸で360度回転（自転） */
+    transform: scale(1.3) rotateY(360deg);
+  }
+}
+
+.slider:hover {
+  animation-play-state: paused;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
